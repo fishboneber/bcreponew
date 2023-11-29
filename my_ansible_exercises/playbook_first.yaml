@@ -1,0 +1,12 @@
+---
+- name: first playbook
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+  - name: show variables
+    debug:
+      msg: "{{  ansible_lsb.description }}"
+  
+
+

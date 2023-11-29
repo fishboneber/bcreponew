@@ -1,0 +1,45 @@
+---
+- name: Playbook to set up a webserver
+  hosts: web
+  become: true
+
+  vars:
+    ansible_become_pass: admin
+
+  
+  tasks:
+
+  - name: Ensure latest version of webserver is installed
+    ansible.builtin.apt:
+      name: apache2
+      state: latest
+    become: true
+      
+  - name: Ensure latest version of rsyslog is installed
+    ansible.builtin.apt:
+      name: rsyslog
+      state: latest
+    become: true
+
+  - name: Ensure html page lies in correct location
+    ansible.builtin.copy:
+      src: /home/student/workspace/bcreponew/my_ansible_exercises/example.html
+      dest: /var/www/html/index.html
+
+  - name: Ensure apache2 is enabled and running
+    ansible.builtin.service:
+      name: apache2
+      enabled: true
+      state: started 
+
+  - name: Ensure rsyslog is enabled and running
+    ansible.builtin.service:
+      name: rsyslog
+      enabled: true
+      state: started
+    
+
+      
+    
+
+# # For task number 7, exchange started with restarted.
